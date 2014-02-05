@@ -1,10 +1,15 @@
 class Song
   extend Findable
 
-  attr_accessor :artist, :genre
-  attr_reader :name, :url
+  attr_accessor :artist
+  attr_reader :name, :url, :genre
 
   @@songs = []
+
+  def genre=(genre)
+    @genre = genre
+    genre.songs << self
+  end
 
   def initialize
     @@songs << self

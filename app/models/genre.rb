@@ -1,12 +1,13 @@
 class Genre
   extend Findable
 
-  attr_reader :name, :url
+  attr_reader :name, :url, :songs
 
   @@genres = []
 
   def initialize
     @@genres << self
+    @songs = []
   end
 
   def name=(name)
@@ -28,5 +29,9 @@ class Genre
 
   def self.count
     self.all.count
+  end
+
+  def artists
+    self.songs.map { |song| song.artist }.uniq
   end
 end
