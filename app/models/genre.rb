@@ -1,4 +1,6 @@
 class Genre
+  extend Findable
+
   attr_reader :name, :url
 
   @@genres = []

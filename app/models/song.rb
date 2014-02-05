@@ -1,4 +1,6 @@
 class Song
+  extend Findable
+
   attr_reader :name, :url
 
   @@songs = []

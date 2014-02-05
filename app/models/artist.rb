@@ -1,4 +1,6 @@
 class Artist
+  extend Findable
+
   attr_reader :name, :url
 
   @@artists = []
