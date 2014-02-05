@@ -1,7 +1,7 @@
 class Song
   extend Findable
 
-  attr_accessor :artist
+  attr_accessor :artist, :genre
   attr_reader :name, :url
 
   @@songs = []
@@ -29,5 +29,12 @@ class Song
 
   def self.all
     @@songs
+  end
+
+  def to_s
+    artist_name = self.artist && self.artist.name
+    genre_name = self.genre && self.genre.name
+
+    "#{artist_name} - #{self.name} [#{genre_name}]"
   end
 end
