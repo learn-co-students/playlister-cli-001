@@ -1,3 +1,3 @@
 class Song
-  attr_accessor :name, :url
+  attr_accessor :name
 end
