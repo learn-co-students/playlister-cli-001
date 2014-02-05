@@ -22,7 +22,19 @@ class LibraryParser
 
   def call
     files.each do |filename|
-      raw_data = parse_filename(filename)
+      parts = parse_filename(filename)
+      build_song(*parts)
     end
+  end
+
+  def build_song(artist_name, song_name, genre_name)
+    song   = Song.new.tap   { |song|   song.name   = song_name   }
+    genre  = Genre.new.tap  { |genre|  genre.name  = genre_name  }
+    artist = Artist.new.tap { |artist| artist.name = artist_name }
+
+    song.genre = genre
+    artist.add_song(song)
+
+    song
   end
 end
