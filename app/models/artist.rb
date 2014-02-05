@@ -1,12 +1,13 @@
 class Artist
   extend Findable
 
-  attr_reader :name, :url
+  attr_reader :name, :url, :songs
 
   @@artists = []
 
   def initialize
     @@artists << self
+    @songs = []
   end
 
   def name=(name)
@@ -28,5 +29,17 @@ class Artist
 
   def self.count
     self.all.count
+  end
+
+  def add_song(song)
+    @songs << song
+  end
+
+  def genres
+    self.songs.map { |song| song.genre }.uniq
+  end
+
+  def add_songs(songs)
+    songs.each { |song| add_song(song) }
   end
 end
