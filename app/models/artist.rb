@@ -3,10 +3,10 @@ class Artist
 
   attr_reader :name, :url, :songs
 
-  @@artists = []
+  ARTISTS = []
 
   def initialize
-    @@artists << self
+    ARTISTS << self
     @songs = []
   end
 
@@ -20,11 +20,11 @@ class Artist
   end
 
   def self.all
-    @@artists
+    ARTISTS
   end
 
   def self.reset_all
-    @@artists.clear
+    ARTISTS.clear
   end
 
   def self.count

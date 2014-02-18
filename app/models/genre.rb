@@ -3,10 +3,10 @@ class Genre
 
   attr_reader :name, :url, :songs
 
-  @@genres = []
+  GENRES = []
 
   def initialize
-    @@genres << self
+    GENRES << self
     @songs = []
   end
 
@@ -20,7 +20,7 @@ class Genre
   end
 
   def self.all
-    @@genres
+    GENRES
   end
 
   def self.reset_all
