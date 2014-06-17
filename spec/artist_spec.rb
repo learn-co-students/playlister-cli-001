@@ -1,7 +1,7 @@
 require_relative 'spec_helper.rb'
 
 describe Artist do
-  before do
+  before(:each) do
     Artist.reset_all
   end
 
@@ -9,15 +9,8 @@ describe Artist do
   let(:song){Song.new}
   let(:genre){Genre.new}
 
-  it_behaves_like 'findable'
-
   it "can be initialized" do
     Artist.new.should be_an_instance_of(Artist)
-  end
-
-  it 'has a url' do
-    artist.name = "Bob Whitney"
-    artist.url.should eq("bob-whitney.html")
   end
 
   it "can have a name" do
@@ -40,6 +33,15 @@ describe Artist do
       Artist.reset_all #you may need to do this before every test
       Artist.count.should eq(0)
     end
+
+    it 'finds an artist by name' do
+      artist.name = "Find Me"
+      Artist.find_by_name('Find Me').should eq(artist)
+    end
+
+    it 'creates an artist by name' do
+      Artist.create_by_name('Find Me').name.should eq('Find Me')
+    end
   end
 
   describe "with songs" do
@@ -48,7 +50,7 @@ describe Artist do
       artist.songs.should include(song)
     end
 
-    it "knows how many songs it has" do
+    it "can add multiple songs at once" do
       artist.add_songs([song, Song.new])
       artist.songs.count.should eq(2)
     end
