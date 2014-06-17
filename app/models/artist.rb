@@ -34,6 +34,9 @@ class Artist
   def add_song(song)
     @songs << song
     song.artist = self
+    if !song.genre.nil?
+      song.genre.artists << self
+    end
   end
 
   def genres
