@@ -7,7 +7,7 @@ describe "LibraryParser" do
     Genre.reset_all
   end
 
-  let(:parser){LibraryParser.new}
+  let(:parser){ LibraryParser.new }
 
   it 'will parse the library' do
     LibraryParser.parse
