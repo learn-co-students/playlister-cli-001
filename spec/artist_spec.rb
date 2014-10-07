@@ -59,7 +59,7 @@ describe Artist do
 
     it "can add multiple songs at once" do
       artist.add_songs([song, Song.new])
-     expect( artist.songs.count).to eq(2)
+     expect(artist.songs.count).to eq(2)
     end
   end
 
