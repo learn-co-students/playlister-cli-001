@@ -1,7 +1,7 @@
 class Genre
   extend Findable
 
-  attr_reader :name, :url, :songs
+  attr_reader :name, :songs
 
   GENRES = []
 
