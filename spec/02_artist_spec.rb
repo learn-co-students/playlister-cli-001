@@ -12,7 +12,6 @@ describe Artist do
   end
 
   it "can have a name" do
-    artist = Artist.new
     artist.name = "Adele"
     expect(artist.name).to eq("Adele")
   end
@@ -50,25 +49,4 @@ describe Artist do
       expect(Artist.create_by_name('Find Me').name).to eq('Find Me')
     end
   end
-
-  describe "with songs" do
-    it "can have a song added" do
-      artist.add_song(song)
-      expect(artist.songs).to include(song)
-    end
-
-    it "can add multiple songs at once" do
-      artist.add_songs([song, Song.new])
-     expect(artist.songs.count).to eq(2)
-    end
-  end
-
-  describe "with genres" do
-    it "can have genres" do
-      song.genre = genre
-      artist.add_song song
-      expect(artist.genres).to include(genre)
-    end
-  end
-
 end

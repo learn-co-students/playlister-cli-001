@@ -1,8 +1,4 @@
-require_relative '../app/concerns/findable.rb'
-require_relative '../app/models/artist.rb'
-require_relative '../app/models/genre.rb'
-require_relative '../app/models/song.rb'
-require_relative '../app/models/library_parser.rb'
+require_relative '../config/environment'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
@@ -11,4 +7,3 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'default'
 end
- 
