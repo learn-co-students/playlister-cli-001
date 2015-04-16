@@ -2,7 +2,7 @@ class Song
   extend Findable
 
   attr_accessor :artist
-  attr_reader :name, :url, :genre
+  attr_reader :name, :genre
 
   SONGS = []
 
@@ -21,11 +21,6 @@ class Song
 
   def name=(name)
     @name = name
-    @url = "#{parameterize(name)}.html"
-  end
-
-  def parameterize(string)
-    string.downcase.gsub(' ', '-')
   end
 
   def self.count

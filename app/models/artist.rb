@@ -1,7 +1,7 @@
 class Artist
   extend Findable
 
-  attr_reader :name, :url, :songs
+  attr_reader :name, :songs
 
   ARTISTS = []
 
@@ -12,11 +12,6 @@ class Artist
 
   def name=(name)
     @name = name
-    @url = "#{parameterize(name)}.html"
-  end
-
-  def parameterize(string)
-    string.downcase.gsub(' ', '-')
   end
 
   def self.all
