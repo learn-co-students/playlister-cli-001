@@ -28,16 +28,9 @@ describe "LibraryParser" do
     expect(Genre.find_by_name(parts[2])).to eq(song.genre)
   end
 
-  it 'will parse all songs in a directory' do
+  it 'will parse the library' do
     parser.call
 
-    expect(Artist.all).to_not be_empty
-    expect(Genre.all).to_not be_empty
-    expect(Song.all).to_not be_empty
-  end
-
-  it 'will parse the library' do
-    LibraryParser.parse
     expect(Artist.all).to_not be_empty
     expect(Genre.all).to_not be_empty
     expect(Song.all).to_not be_empty
