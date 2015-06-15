@@ -10,7 +10,7 @@ In [playlister-rb](http://learn.flatironschool.com/lessons/940), you built a sim
 
 ## Setting Up the Project
 
-First, Fork and Clone this project. Code your answer in an appropriate branch, `solution`, and then submit a Pull Request.
+First, Fork and Clone this project. Code your answer and then submit a Pull Request.
 
 You can run the test suite via `rspec`.
 
@@ -111,5 +111,3 @@ This class should be the primary interface for the command line application. Upo
 
 Have fun with this, add functionality to perhaps browse by Genre or Artist.
 
-## Resources
-* [Build Awesome Command-Line Applications in Ruby](http://books.flatironschool.com/books/103) - [Chapter 1: Have a Clear and Concise Purpose](http://books.flatironschool.com/books/103), page 18
