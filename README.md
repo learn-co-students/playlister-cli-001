@@ -1,5 +1,4 @@
 
-
 # Playlister CLI
 
 In [playlister-rb](http://learn.flatironschool.com/lessons/940), you built a simple domain model for Artists, Songs, and Genres and in [OO Jukebox](http://learn.flatironschool.com/lessons/806), you built an Object Oriented CLI Jukebox. It is now time to combine these to build an interactive Command Line Jukebox that is populated with data from a folder filled with MP3s.
@@ -77,7 +76,7 @@ Some new additions of functionality are class methods `find_by_name`, `create_by
 
 ### `LibraryParser`
 
-The `LibraryParser` should responible for finding the MP3 files, parsing their titles, and build Song, Artist, and Genre objects from that data. 
+The `LibraryParser` should be responible for finding the MP3 files, parsing their titles, and building Song, Artist, and Genre objects from that data. 
 
 An instance of `LibraryParser` should accept a relative path from the top of the directory that points to a directory with MP3s to parse. For example, `LibraryParser.new('db/data')` would point to the `data` directory provided within `db`.
 
