@@ -1,8 +1,3 @@
----
-  tags: cli, oo, playlister, parser, full-application
-  language: ruby
-  resources: 1
----
 
 # Playlister CLI
 
@@ -81,7 +76,7 @@ Some new additions of functionality are class methods `find_by_name`, `create_by
 
 ### `LibraryParser`
 
-The `LibraryParser` should responible for finding the MP3 files, parsing their titles, and build Song, Artist, and Genre objects from that data. 
+The `LibraryParser` should be responible for finding the MP3 files, parsing their titles, and building Song, Artist, and Genre objects from that data. 
 
 An instance of `LibraryParser` should accept a relative path from the top of the directory that points to a directory with MP3s to parse. For example, `LibraryParser.new('db/data')` would point to the `data` directory provided within `db`.
 
