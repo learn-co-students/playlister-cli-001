@@ -53,7 +53,7 @@ class PlaylisterCLI
 
   def play_song(song_to_play)
     if song_to_play.to_i > 0
-      puts "\nNow playing #{Song.all[song_to_play.to_i]}\n"
+      puts "\nNow playing #{Song.all[song_to_play.to_i - 1]}\n"
     else
       puts "\nNow playing #{Song.find_by_name(song_to_play)}"
     end
