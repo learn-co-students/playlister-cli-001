@@ -1,21 +1,32 @@
-
 # Playlister CLI
-
-In [playlister-rb](http://learn.flatironschool.com/lessons/940), you built a simple domain model for Artists, Songs, and Genres and in [OO Jukebox](http://learn.flatironschool.com/lessons/806), you built an Object Oriented CLI Jukebox. It is now time to combine these to build an interactive Command Line Jukebox that is populated with data from a folder filled with MP3s.
-
-## Setting Up the Project
-
-First, Fork and Clone this project. Code your answer and then submit a Pull Request.
-
-You can run the test suite via `rspec`.
 
 ## Objectives
 
-### Setup
+1. Build classes that are associated to one another via has many, belongs to and through associations. 
+2. Build a class that parses file names and uses that data to instantiate instances of classes. 
+3. Interact with and get comfortable with a command line interface that was built for you. 
 
-The first step of this project is to set it up correctly.
+## Overview
 
-You should be delivering the project with the folder structure and setup we've been learning about and using. It looks something like this:
+In previous labs, you've built a Playlister domain model that creates artist, song and genre classes that are associated to each other via has many, belongs to and through associations. In another lab, you built an object oriented command line jukebox. This exercise will bring together some of those concepts. You'll be building out the Playlister domain model again. Then, we'll write a `LibraryParser` class that takes a list of music file names, grabs the artist, song name and genre out of each file name and uses that data to build song, artist and genre instances and associate them to one another. 
+
+### Using External Data to Create Class Instances
+
+We already know that our job as programmers is to deliver data. That will the core concept behind many of the apps you build, especially apps for the web. So, where will that data come from? In some cases, it will come from users interacting with out app. The number of instances of the `User` class, for example, might grow every time someone signs up for our app. 
+
+Let's say, though, that we are building an app that connects users to food pantries in their area. Where do we get the data on the food pantry locations from? There are dozens of food pantries in New York City. If you expand the geographic area, dozens would turn into hundreds of locations. We're lazy (remember, that's a virtue in a programmer!) and we certainly don't want to sit at our computer and instantiate hundreds of `FoodPantry` objects by hand. We would want a way to do that *programmatically*. We would want to write a class or a method that can iterate over a list of food pantries and their associated data (location, name, etc) and turn that data into instances of a `FoodPantry` class. 
+
+Let's take a look at another example. Let's say we have an app that allows users to browse lists of recipes, saving recipes to their favorites and inviting their friends to collaborate on meals. We do get get the recipes from? Once again, would we sit at our computers and manually instantiate hundres or even thousans of instances of a `Recipe` class? We are way to lazy for that. We would instead write a program that extracted recipes from an external source, such as an API, and used that data to instantiate our own `Recipe` instances. 
+
+This kind of data retrieval and instantiation is what we've been practicing in many of the labs we've completed so far. Here, we'll be using a list of mp3 files in a `db` ("database") directory to instantiate `Song`, `Artist` and `Genre` instances in our Playlister domain model. 
+
+## Instructions
+
+This lab is partly test-driven. Your'e expected to get the `Song`, `Arist` and `Genre` classes set up using the tests to guide you. The `LibraryParser` class we'll set up together. Read through the guidelines below before proceeding with this lab.
+
+### Project Set Up
+
+The folder structure for this project is similar to the set up that we've been learning about and using up until now. It looks something like this:
 
 ```
 ├── README.md
@@ -72,37 +83,128 @@ You should build out the domain model in the following order:
 
 These classes have to be built in unison as they collaborate so heavily. Begin with the `Song` class according to spec as it is the central character, and add `Artist` and `Genre` behavior as they are required. They are very similar to the classes defined in the `playlister-rb` project.
 
-Some new additions of functionality are class methods `find_by_name`, `create_by_name`, and `reset_all`. The `create_by_name` method is a shortcut to instantiation with a name. We do this because we want to extend the functionality of creating an instance, instead of changing the behavior of initialize. By building a class method `create_by_name` that explicitly accepts a name argument and handles initialization, the `initialize` method does not need to be responsible for attribute assignment. `find_by_name` should be able to pluck the correct object out of the collections within the class method `all`. Additionally, a `reset_all` method is provided to clear our data.
+Some new additions of functionality are class methods `find_by_name`, `create_by_name`, and `reset_all`. The `create_by_name` method is a shortcut to instantiation with a name. We do this because we want to extend the functionality of creating an instance, instead of changing the behavior of initialize. By building a class method `create_by_name` that explicitly accepts a name argument and handles initialization, the `initialize` method does not need to be responsible for attribute assignment. `find_by_name` should be able to pluck the correct object out of the collections within the class method `all`. Additionally, a `reset_all` method should be able to clear our data, i.e. our collection of all of the instances of a class. 
+
+**Advanced:** Note the `app/concerns` directory. For an extra challenge, refactor your `Song`, `Artist` and `Genre` class by removing all of the common methods described above and building them into either a `Findable` module, `Creatable` module or `Destroyable` module. You should create `findable.rb`, `creatable.rb` and `destroyable.rb` files and place them in `app/concerns`.
 
 ### `LibraryParser`
 
 The `LibraryParser` should be responible for finding the MP3 files, parsing their titles, and building Song, Artist, and Genre objects from that data. 
 
-An instance of `LibraryParser` should accept a relative path from the top of the directory that points to a directory with MP3s to parse. For example, `LibraryParser.new('db/data')` would point to the `data` directory provided within `db`.
-
+<!-- An instance of `LibraryParser` should accept a relative path from the top of the directory that points to a directory with MP3s to parse. For example, `LibraryParser.new('db/data')` would point to the `data` directory provided within `db`.
+ -->
 The `library_parser_spec` defines a pretty specific vision for the library parser. It breaks it down to some small methods.
 
-`files`
+#### `.files`
 
-This method should return all the filenames within the target directory.
+This method has been built for you. It sets a `@files` variables equal to the list of files contained in the `db/data` directory. Via the following line: 
 
-`parse`
+```ruby
+@files = Dir['db/data/*']
+```
+The [`Dir` class](http://ruby-doc.org/core-2.2.0/Dir.html) is a Ruby class that provides a variety of ways to list directories and their contents. This method returns an array of file names. 
 
-Should actually parse all the file names and create corresponding instances.
+`require 'pry` at the top of the `LibraryParser` file and place a `binding.pry` into the `.files` method. Take a look at the `@files` variable to become familiar with the array you'll be operating on. 
 
-`parse_filename`
+#### `.parse_filename`
 
-Given a filename, this should separate it out to the corresponding data points of an artist, a song, and a genre.
+This method is also given to you. However, it's implementation is important to understand, so please read the explanation below. 
 
-`build_song`
+This method operates on *a single file name*. It takes that file name in as an argument and uses a regular expression to extract from that file name the author, song and genre. Then, it returns an array that looks like this: 
 
-Given an artist name, a song name, and a genre name, this method will build the corresponding object instances of `Artist`, `Song`, and `Genre`.
+```ruby
+[artist_name, song_name, genre_name]
+```
+
+**Regular Expressions in Ruby:** 
+
+A [regular expression](http://ruby-doc.org/core-2.2.0/Regexp.html) is used to match a pattern against a string. 
+
+In this case, we need to operate on an individual file name that looks something like this: 
+
+```ruby
+"db/data/Action Bronson - Larry Csonka [indie].mp3"
+```
+
+and use a regex to grab the artist, song and genre out of the string. 
+
+* First, slice off the `db/data/` from the song using the `.slice!` method. 
+
+```ruby
+filename = "db/data/Action Bronson - Larry Csonka [indie].mp3"
+filename.slice!(0..7)
+filename 
+  => "Action Bronson - Larry Csonka [indie].mp3"
+```
+* Now, let's grab the artist's name. The artist will always be the set of characters between the beginning of the newly sliced filename and the `" -"`. We can use the following regex: 
+
+```ruby
+filename.match(/^(.*) -/)
+```
+
+The `.match` method is called on a string and takes in a regular expression. It finds the characters that match the regular expression and returns a `MatchData` object. Let's break down the regex above: 
+
+* The forward slashes, `/` start and end the expression.
+* The `^` means "start at the beginning of the string"
+* The `.*` means all characters of any type up through the...
+* ` -` finishes the above statement so that the whole thing reads: "Start at the beginning of the string and grab all of the characters up through the ` -`"
+* The parantheses around the `.*` indicate that we also want to grab just the characters between the start of the string and the whitespace the preceeds the `-`. The resultant object looks like this: 
+
+```ruby
+#<MatchData "Action Bronson -" 1:"Action Bronson">
+```
+
+Because we used the parentheses, `(.*)`, to grab the text we wanted out of the match result, we have this `1:"Action Bronson"` attribute in our MatchData object. To grab *just the artist name*, we can do this: 
+
+```ruby
+artist = filename.match(/^(.*) -/)[1]
+  => "Action Bronson"
+```
+
+* Great, now that we've grabbed the artist's name from the file name, let's get the song's name. This time we need a regex to grab everything in between the `"- "` and the first bracket, `[`, that encloses the genre name. 
+
+```ruby
+song   = filename.match(/- (.*) \[/)[1]
+```
+Once again we are using parentheses to grab the exact expression we want. 
+
+* Let's get the genre name too: 
+
+```ruby
+genre  = filename.match(/\[([^\]]*)\]/)[1]
+```
+
+We're almost done with this method! The return value should be an array that looks like this: 
+
+`[artist, song, genre]`
+
+**Note:** It's okay if you don't understand everything that was just discussed about regular expressions! Regex is hard to get the hang of and we'll be taking a closer look in a more advanced unit. The take-aways are: 
+
+* Regex can be used to identify a segment of a string that matches a particular pattern. 
+* The regex code that we need to grab the artist, song and genre names from a single `filename` is as follows: 
+
+
+```ruby
+artist = filename.match(/^(.*) -/)[1]
+song = filename.match(/- (.*) \[/)[1]
+genre = filename.match(/\[([^\]]*)\]/)[1]
+```
+
+#### `build_song`
+
+The `build_song` method will call on the `parse_filename` method. It should take in an argument of an individual file name and pass that file name to `parse_filename`. The array that `parse_filename` returns will be used here to instantiate  instances of `Song`, `Artist` and `Genre`. Use the `.create_by_name` method to instantiate the artist, song and genre. Associate them to one another use the `.add_song(song)` method on the artist instance and the `.genre=` method on the `song` instance. 
+
+Make sure this method returns the `Song` instance that you create. 
+
+#### `.call`
+
+This method is responsible for executing the `LibraryParser` code. The `.call` method should iterate over the array of file names stored in the `.files` method. For each file name, call the `build_song` method. 
 
 #### `PlaylisterCLI`
 
-This class should be the primary interface for the command line application. Upon initialization, the PlaylisterCLI should parse the main data in `data/db` (with the help of your `LibraryParser` class). It should allow the user to browse the music and play music. We already have a basic version coded, and it should be familiar to you having already built something like it! 
+This class is the primary interface for the command line application. Upon initialization, we parse the main data in `data/db` (with the help of your `LibraryParser` class). It allows the user to browse the music and play music. We already have a basic version coded. Take the time to look through the code in this class until you feel you understand it. 
 
-###
+#### Bonus
 
-Have fun with this, add functionality to perhaps browse by Genre or Artist.
+Add features to the `PlaylisterCLI` class! Have fun with this, add functionality to perhaps browse by Genre or Artist.
 

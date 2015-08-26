@@ -1,3 +1,4 @@
+require 'pry'
 describe Genre do
   before(:each) do
     Genre.reset_all
@@ -30,12 +31,13 @@ describe Genre do
   it "keeps unique artists" do
     genre = Genre.new.tap{|g| g.name = 'rap'}
     artist = Artist.new
-
-    [1,2].each do
-      song = Song.new
-      song.genre = genre
-      artist.add_song(song)
-    end
+    song = Song.new
+    second_song = Song.new
+    song.genre = genre
+    second_song.genre = genre
+    artist.add_song(song)
+    artist.add_song(second_song)
+    
     expect(genre.artists.count).to eq(1)
   end
 end

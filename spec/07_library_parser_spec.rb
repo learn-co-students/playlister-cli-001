@@ -13,19 +13,19 @@ describe "LibraryParser" do
   end
 
   it 'parses a filename into 3 parts' do
-    parts = parser.parse_filename('Action Bronson - Larry Csonka [indie].mp3')
+    parts = parser.parse_filename('db/data/Action Bronson - Larry Csonka [indie].mp3')
     expect(parts[0]).to eq('Action Bronson')
     expect(parts[1]).to eq('Larry Csonka')
     expect(parts[2]).to eq('indie')
   end
 
   it 'builds a song based on song parts' do
-    parts = ['Action Bronson', 'Larry Csonka', 'indie']
-    song = parser.build_song(parts[0], parts[1], parts[2])
+    # parts = ['Action Bronson', 'Larry Csonka', 'indie']
+    song = parser.build_song('db/data/Action Bronson - Larry Csonka [indie].mp3')
 
-    expect(Artist.find_by_name(parts[0])).to eq(song.artist)
-    expect(Song.find_by_name(parts[1])).to eq(song)
-    expect(Genre.find_by_name(parts[2])).to eq(song.genre)
+    expect(Artist.find_by_name("Action Bronson")).to eq(song.artist)
+    expect(Song.find_by_name("Larry Csonka")).to eq(song)
+    expect(Genre.find_by_name("indie")).to eq(song.genre)
   end
 
   it 'will parse the library' do

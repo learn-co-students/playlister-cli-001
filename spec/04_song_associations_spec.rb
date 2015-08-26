@@ -11,6 +11,12 @@ describe Song do
     expect(song.genre).to be_a(Genre)
   end
 
+  it "when the genre= method is called to set a genre equal to an instance of the genre class, the song gets added to that genre's songs" do 
+    genre = Genre.new.tap {|g| g.name = "Classical"}
+    song.genre = genre
+    expect(genre.songs).to include(song)
+  end
+
   it "has an artist" do
     song.artist = Artist.new.tap {|a| a.name = "miley"}
     expect(song.artist).to be_a(Artist)
