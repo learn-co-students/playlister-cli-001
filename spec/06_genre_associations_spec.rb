@@ -1,4 +1,3 @@
-require 'pry'
 describe Genre do
   before(:each) do
     Genre.reset_all
