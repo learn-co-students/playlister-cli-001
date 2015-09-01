@@ -16,13 +16,13 @@ We already know that our job as programmers is to deliver data. That will the co
 
 Let's say, though, that we are building an app that connects users to food pantries in their area. Where do we get the data on the food pantry locations from? There are dozens of food pantries in New York City. If you expand the geographic area, dozens would turn into hundreds of locations. We're lazy (remember, that's a virtue in a programmer!) and we certainly don't want to sit at our computer and instantiate hundreds of `FoodPantry` objects by hand. We would want a way to do that *programmatically*. We would want to write a class or a method that can iterate over a list of food pantries and their associated data (location, name, etc) and turn that data into instances of a `FoodPantry` class. 
 
-Let's take a look at another example. Let's say we have an app that allows users to browse lists of recipes, saving recipes to their favorites and inviting their friends to collaborate on meals. We do get get the recipes from? Once again, would we sit at our computers and manually instantiate hundres or even thousans of instances of a `Recipe` class? We are way to lazy for that. We would instead write a program that extracted recipes from an external source, such as an API, and used that data to instantiate our own `Recipe` instances. 
+Let's take a look at another example. Let's say we have an app that allows users to browse lists of recipes, saving recipes to their favorites and inviting their friends to collaborate on meals. We do get get the recipes from? Once again, would we sit at our computers and manually instantiate hundres or even thousans of instances of a `Recipe` class? We are way too lazy for that. We would instead write a program that extracted recipes from an external source, such as an API, and used that data to instantiate our own `Recipe` instances. 
 
 This kind of data retrieval and instantiation is what we've been practicing in many of the labs we've completed so far. Here, we'll be using a list of mp3 files in a `db` ("database") directory to instantiate `Song`, `Artist` and `Genre` instances in our Playlister domain model. 
 
 ## Instructions
 
-This lab is partly test-driven. Your'e expected to get the `Song`, `Arist` and `Genre` classes set up using the tests to guide you. The `LibraryParser` class we'll set up together. Read through the guidelines below before proceeding with this lab.
+This lab is partly test-driven. You're expected to get the `Song`, `Arist` and `Genre` classes set up using the tests to guide you. The `LibraryParser` class we'll set up together. Read through the guidelines below before proceeding with this lab.
 
 ### Project Set Up
 
