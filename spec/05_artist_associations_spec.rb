@@ -13,6 +13,11 @@ describe Artist do
       expect(artist.songs).to include(song)
     end
 
+    it "sets a song's artist= property to itself when a song it added to an artist" do 
+      artist.add_song(song)
+      expect(song.artist).to eq(artist)
+    end
+
     it "can add multiple songs at once" do
       artist.add_songs([song, Song.new])
      expect(artist.songs.count).to eq(2)

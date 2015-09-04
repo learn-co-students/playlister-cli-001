@@ -1,41 +1,56 @@
 class LibraryParser
+  
+  def call
+  files.each do |file|
+    build_song(file)
+  end
+ end
 
   def files
-    data_path = File.join(File.dirname(__FILE__), '..', '..', 'db', 'data')
-    Dir.entries(data_path)[2..-1]
-  end
-
-  def self.parse
-    self.new.call
+    @files = Dir['db/data/*']
   end
 
   def parse_filename(filename)
-    artist_match = filename.match(/^(.*) -/)
-    song_match   = filename.match(/- (.*) \[/)
-    genre_match  = filename.match(/\[([^\]]*)\]/)
+  
+    # at this point a file name looks something like this: 
+    # "db/data/Action Bronson - Larry Csonka - indie.mp3"
 
-    artist = artist_match && artist_match[1]
-    song   = song_match   && song_match[1]
-    genre  = genre_match  && genre_match[1]
+    # the line below slices off the db/data/ that prepends each file name
+  
+    filename.slice!(0..7)
 
-    [artist, song, genre]
+    # now, we need to grab the artist name, song name and genre name out of the filename string
+
+    # right now, the filename looks something like this: "Action Bronson - Larry Csonka - indie.mp3"
+
+    # first, get rid of the '.mp3' file extension:
+
+    filename.slice!(-4..-1)
+
+    # now, split the string on the ' - '
+
+    info = filename.split(" - ")
+    
+    # our resultant `info` array looks like this: ["Action Bronson", "Larry Csonka", "indie"]
+    # we are therefore successfully returning the array of artist, song, genre
+
+ 
   end
 
-  def call
-    files.each do |filename|
-      parts = parse_filename(filename)
-      build_song(*parts)
-    end
-  end
+  def build_song(filename)
 
-  def build_song(artist_name, song_name, genre_name)
-    song   = Song.new.tap   { |song|   song.name   = song_name   }
-    genre  = Genre.new.tap  { |genre|  genre.name  = genre_name  }
-    artist = Artist.new.tap { |artist| artist.name = artist_name }
-
-    song.genre = genre
+    file_array = parse_filename(filename)
+  
+    song = Song.create_by_name(file_array[1])
+    artist = Artist.create_by_name(file_array[0])
+    genre = Genre.create_by_name(file_array[2])
+    
     artist.add_song(song)
-
+    song.genre = genre
+    
     song
   end
+
+
+
 end

@@ -1,13 +1,11 @@
 class PlaylisterCLI
+  
   attr_accessor :songs
   APPROVED_COMMANDS = [:list, :exit, :play, :help]
 
-  def initialize(parse_library = true, library_path = 'db/data')
-    if parse_library
-      @library_parser = LibraryParser.new
-      @library_parser.call
-    end
-
+  def initialize
+    @library_parser = LibraryParser.new
+    @library_parser.call
     @on = true
   end
 
@@ -17,7 +15,7 @@ class PlaylisterCLI
 
   def call
     while on?
-      self.help
+      self.request_input
     end
   end
 
@@ -25,12 +23,17 @@ class PlaylisterCLI
     @on = false
   end
 
-  def help
+  def request_input
     puts "Enter list, help, exit or play"
-    self.command_request
+    self.get_input
   end
 
-  def command(input)
+  def get_input
+    input = gets.downcase.strip
+    self.do_command(input)
+  end
+
+  def do_command(input)
     # What does the ruby send method do and why would we use it?
     # http://ruby-doc.org/core-2.1.0/Object.html#method-i-send
     send(input) if command_valid?(input)
@@ -42,8 +45,15 @@ class PlaylisterCLI
 
   def list
     Song.all.each_with_index do |song,i|
-      puts "#{i+1}. #{song}"
+      puts "#{i+1}. #{song.to_s}"
     end
+  end
+
+  def help
+    puts "The valid commands are:"
+    puts " - list: list songs"
+    puts " - play: play a song"
+    puts " - exit: leave this awesome app"
   end
 
   def play
@@ -59,11 +69,4 @@ class PlaylisterCLI
     end
   end
 
-  def command_request
-    self.command(user_input)
-  end
-
-  def user_input
-    gets.downcase.strip
-  end
 end
