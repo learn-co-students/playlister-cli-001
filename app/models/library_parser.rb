@@ -38,7 +38,6 @@ class LibraryParser
   end
 
   def build_song(filename)
-
     file_array = parse_filename(filename)
   
     song = Song.create_by_name(file_array[1])
@@ -50,7 +49,5 @@ class LibraryParser
     
     song
   end
-
-
 
 end
