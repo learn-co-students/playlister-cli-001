@@ -61,7 +61,7 @@ The `bin` directory contains your executables. Within this directory there is a 
 
 1. The first line in the `cli`, that starts with a `#!` is a line that tells BASH what interpreter to run this script through. We send it to: `#!/usr/bin/env ruby`, our ruby interpreter. This lets us write a shell script that can be executed outside of the ruby command (`./bin/cli vs ruby ./bin/cli.rb`).
 2. It requires our environment, see below.
-3. We're going to keep this file super simple, it's only job is to create an instance of our PlaylisterCLI interface and then trigger it via the `call` method. We purposely keep this file super simple so that all of our knowledge about the Playlister CLI interface gets encapsulated within our PlaylisterCLI class, defined in `lib/models/playlister_cli.rb`.
+3. We're going to keep this file super simple, it's only job is to create an instance of our PlaylisterCLI interface and then trigger it via the `call` method. We purposely keep this file super simple so that all of our knowledge about the Playlister CLI interface gets encapsulated within our PlaylisterCLI class, defined in `app/models/playlister_cli.rb`.
 
 #### `db/data`
 
