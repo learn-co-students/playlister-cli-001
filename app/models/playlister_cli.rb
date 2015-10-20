@@ -1,5 +1,5 @@
 class PlaylisterCLI
-  
+
   attr_accessor :songs
   APPROVED_COMMANDS = [:list, :exit, :play, :help]
 
