@@ -12,7 +12,7 @@ In previous labs, you've built a Playlister domain model that creates artist, so
 
 ### Using External Data to Create Class Instances
 
-We already know that our job as programmers is to deliver data. That will the core concept behind many of the apps you build, especially apps for the web. So, where will that data come from? In some cases, it will come from users interacting with our app. The number of instances of the `User` class, for example, might grow every time someone signs up for our app. 
+We already know that our job as programmers is to deliver data. That will be the core concept behind many of the apps you build, especially apps for the web. So, where will that data come from? In some cases, it will come from users interacting with our app. The number of instances of the `User` class, for example, might grow every time someone signs up for our app. 
 
 Let's say, though, that we are building an app that connects users to food pantries in their area. Where do we get the data on the food pantry locations from? There are dozens of food pantries in New York City. If you expand the geographic area, dozens would turn into hundreds of locations. We're lazy (remember, that's a virtue in a programmer!) and we certainly don't want to sit at our computer and instantiate hundreds of `FoodPantry` objects by hand. We would want a way to do that *programmatically*. We would want to write a class or a method that can iterate over a list of food pantries and their associated data (location, name, etc) and turn that data into instances of a `FoodPantry` class. 
 
