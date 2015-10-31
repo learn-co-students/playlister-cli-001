@@ -1,8 +1,8 @@
 class LibraryParser
 
- def call
-  # code here
- end
+  def call
+    files.each { |file| build_song(file) }
+  end
 
   def files
     @files = Dir['db/data/*']
@@ -15,7 +15,13 @@ class LibraryParser
   end
 
   def build_song(filename)
-    # code here!
+    song_info = parse_filename(filename)
+    artist = Artist.create_by_name(song_info[0])
+    song = Song.create_by_name(song_info[1])
+    genre = Genre.create_by_name(song_info[2])
+    song.artist = artist
+    song.genre = genre
+    song
   end
 
 
